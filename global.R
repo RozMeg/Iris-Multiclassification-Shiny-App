@@ -30,7 +30,7 @@ preds2 <- as.data.frame(matrix(preds,nrow=150, ncol=3,byrow=TRUE))
 colnames(preds2) <- c("setosa","versicolor","virginica")
 
 #merge predictions with Iris dataframe so we can sort by feature
-main <- merge(iris, preds2)
+main <- cbind(iris, preds2)
 
 #create function for generating a prediction table
 #takes a given sepal length, sepal width, petal length, and petal width and returns a table with the list of species possibilities,
@@ -39,12 +39,22 @@ main <- merge(iris, preds2)
 pred_gen <- function(slength, swidth, plength, pwidth){
   #gets the appropriate case
   case <- main%>%
-    #pick correct case based on values
-    filter(Sepal.Length == slength & Sepal.Width == swidth & Petal.Length== plength & Petal.Width == pwidth)
-  #make a new dataframe with the probabilities for given case
-  species_probs <- case%>%
-    select(setosa, versicolor, virginica)
-  
+    filter(Sepal.Length == slength, Sepal.Width == swidth, Petal.Length == plength, Petal.Width == pwidth)%>%
+    #take average in case there are multiple with same value
+    summarize(
+      setosa = mean(setosa),
+      versicolor = mean(versicolor),
+      virginica = mean(virginica))
+  #had to mess with column names because they disappeared when I transposed
+  t<-as.data.frame(t(case))%>%
+    cbind(c("setosa","versicolor","virginica"))
+    colnames(t) = c("probability","species")
+    #sort by descending probability
+  ts<- t%>%
+    arrange(desc(probability))
+  #return dataframe
+  return(ts)
 }
 
-pred_gen(5.1, 3.5,1.4,0.2)
+#Test
+#pred_gen(5.1, 3.5,1.4,0.2)
