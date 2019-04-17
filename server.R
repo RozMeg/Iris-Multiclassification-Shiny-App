@@ -15,10 +15,12 @@ server <- function(input, output){
   
   #create Scatterplot with Sepal Length and Sepal Width. Color based on the Species 
   #and add a red point on the plot that shows where the values are set for prediction
+  
+  #I made the point black instead because otherwise, you can't see it since setosa is already red
   output$scatter <- renderPlot({p <-
                                  ggplot(data = main, aes(x=main$Sepal.Width,y=main$Sepal.Length))+
                                  geom_point(aes(color=Species, shape=Species)) + labs(x="Sepal Width",y="Sepal Length")+
-                                 geom_point(aes(x=input$swidth, y=input$slength), colour="red")
+                                 geom_point(aes(x=input$swidth, y=input$slength), colour="black")
                                print(p)})
   
   #create density plots for Sepal.Length, Sepal.Width, Petal.Length, and Petal.Width that have a vertical line 

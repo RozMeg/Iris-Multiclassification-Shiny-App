@@ -10,33 +10,43 @@ library(shinydashboard)
 dashboardPage(
   dashboardHeader(title="Iris Multiclassification"),
   dashboardSidebar(
-    tabItems(
-      #First tab is inputs
-      tabItem(tabName = "Input values",
-              fluidPage(
+                numericInput("slength",
+                             "Sepal Length:",
+                             min=min(main$Sepal.Length),
+                             max=max(main$Sepal.Length),
+                             value=5.0,
+                             step=0.1),
                 numericInput("swidth",
                              "Sepal Width:",
                              min = min(main$Sepal.Width),
                              max = max(main$Sepal.Width),
-                             value=0))))
-    #                         value = 3.5),
-    #             numericInput("slength",
-    #                          "Sepal Length:",
-    #                          min = min(main$Sepal.Length),
-    #                          max=max(main$Sepal.Length),
-    #                         value = 5.0),
-    #             numericInput("pwidth",
-    #                          "Petal Width:",
-    #                          min = min(main$Petal.Width),
-    #                          max = max(main$Petal.Width),
-    #                         value=0.2),
-    #             numericInput("plength",
-    #                         "Petal Length:",
-    #                         min=min(main$Petal.Length),
-    #                         max=max(main$Petal.Length),
-    #                         Value=0.1)
-    #           ))
-    # )
-  ),
-  dashboardBody()
+                             value=3.0,
+                             step=0.1),
+                numericInput("plength",
+                            "Petal Length:",
+                            min=min(main$Petal.Length),
+                            max=max(main$Petal.Length),
+                            value=1.5,
+                            step=0.1),
+                numericInput("pwidth",
+                             "Petal Width:",
+                             min = min(main$Petal.Width),
+                             max = max(main$Petal.Width),
+                             value=0.2,
+                             step=0.1)),
+          
+  dashboardBody(
+    fluidRow(
+      box("Species Prediction Probability",DT::dataTableOutput("probTable"))
+    ),
+    fluidRow(
+      box("Scatterplot of Petal Length vs. Petal Width",plotOutput("scatter"))
+    ),
+    fluidRow(
+      box("Sepal Length Density",plotOutput("sldensity")),
+      box("Sepal Width Density",plotOutput("swdensity")),
+      box("Petal Length Density",plotOutput("pldensity")),
+      box("Petal Width Density",plotOutput("pwdensity"))
+    )
+  )
 )
