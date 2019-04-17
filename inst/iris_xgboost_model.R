@@ -51,12 +51,17 @@ nround = which(bst.cv$evaluation_log$test_mlogloss_mean == min(bst.cv$evaluation
 IrisClassifier <- xgboost(params = param, data = x, label = y
                           ,nrounds = nround, missing = NA)
 
-#get predictions
-preds <- predict(IrisClassifier, x)
+#save model
+xgb.save(IrisClassifier,"IrisClassifier.rdata")
 
-#makepredictions into dataframe
-preds2 <- as.data.frame(matrix(preds,nrow=150, ncol=3,byrow=TRUE))
-colnames(preds2) <- c("setosa","versicolor","virginica")
+
+#will need this code for the global app, commenting out for now
+# #get predictions
+# preds <- predict(IrisClassifier, x)
+# 
+# #makepredictions into dataframe
+# preds2 <- as.data.frame(matrix(preds,nrow=150, ncol=3,byrow=TRUE))
+# colnames(preds2) <- c("setosa","versicolor","virginica")
 
 
 
