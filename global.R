@@ -15,16 +15,21 @@ xgmodel <- xgb.load("inst/IrisClassifier.rdata")
 
 #create function to generate prediction table
 pred_gen <- function(slength, swidth, plength, pwidth){
-  
+  #make prediction based on inputs
   preds <- predict(IrisClassifier, as.matrix(slength,swidth,plength,pwidth))
+  
   #create data frame with probabilities
   #cbind and colnames threw errors when I wanted to chain, hence, the ugly code
   #had to throw in another column with the names since the labels wouldn't cooperate
-  t <- cbind(preds,c("setosa","versicolor","virginica"))
-  prob_df <- as.data.frame(t)
-  colnames(prob_df)=c("Probabilities","Species")
-  arrange(prob_df,desc("Probabilities"))
-  return(prob_df)
+  t <- as.dataframe(preds)%>%
+    cbind(c("setosa","versicolor","virginica"))
+  colnames(t) = c("probability","species")
+  #sort by descending probability
+  ts<- t%>%
+      arrange(desc(probability))
+    #return dataframe
+    return(ts)
+  
 }
 
 # #setting up the dataset again
@@ -74,6 +79,6 @@ pred_gen <- function(slength, swidth, plength, pwidth){
 #   return(ts)
 # }
 
-# #Test
-# b <- pred_gen(5.1, 3.5,1.4,0.2)
-# b
+#Test
+k <- pred_gen(7.0, 3.2,4.7,1.4)
+k
