@@ -18,7 +18,7 @@ server <- function(input, output){
   
   #I made the point black instead because otherwise, you can't see it since setosa is already red
   output$scatter <- renderPlot({p <-
-                                 ggplot(data = main, aes(x=main$Sepal.Width,y=main$Sepal.Length))+
+                                 ggplot(data = iris, aes(x=iris$Sepal.Width,y=iris$Sepal.Length))+
                                  geom_point(aes(color=Species, shape=Species)) + labs(x="Sepal Width",y="Sepal Length")+
                                  geom_point(aes(x=input$swidth, y=input$slength), colour="black")
                                print(p)})
@@ -28,28 +28,28 @@ server <- function(input, output){
   
   #density plot for sepal width
   output$swdensity <- renderPlot({sw <- 
-                                   ggplot(data=main, aes(x=main$Sepal.Width, fill=main$Species))+
+                                   ggplot(data=iris, aes(x=iris$Sepal.Width, fill=iris$Species))+
                                    geom_density(stat = "density",alpha=I(0.2))+
                                    geom_vline(aes(xintercept = input$swidth), color = "red", linetype = "dashed")
   print(sw)})
   
   #density plot for sepal length
   output$sldensity <- renderPlot({sl <- 
-    ggplot(data=main, aes(x=main$Sepal.Length, fill=main$Species))+
+    ggplot(data=iris, aes(x=iris$Sepal.Length, fill=iris$Species))+
     geom_density(stat = "density",alpha=I(0.2))+
     geom_vline(aes(xintercept = input$slength), color = "red", linetype = "dashed")
   print(sl)})
   
   #density plot for petal width
   output$pwdensity <- renderPlot({pw <- 
-    ggplot(data=main, aes(x=main$Petal.Width, fill=main$Species))+
+    ggplot(data=iris, aes(x=iris$Petal.Width, fill=main$Species))+
     geom_density(stat = "density",alpha=I(0.2))+
     geom_vline(aes(xintercept = input$pwidth), color = "red", linetype = "dashed")
   print(pw)})
   
   #density plot for petal width
   output$pldensity <- renderPlot({pl <- 
-    ggplot(data=main, aes(x=main$Petal.Length, fill=main$Species))+
+    ggplot(data=iris, aes(x=iris$Petal.Length, fill=iris$Species))+
     geom_density(stat = "density",alpha=I(0.2))+
     geom_vline(aes(xintercept = input$plength), color = "red", linetype = "dashed")
   print(pl)})
