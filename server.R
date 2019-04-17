@@ -42,7 +42,7 @@ server <- function(input, output){
   
   #density plot for petal width
   output$pwdensity <- renderPlot({pw <- 
-    ggplot(data=iris, aes(x=iris$Petal.Width, fill=main$Species))+
+    ggplot(data=iris, aes(x=iris$Petal.Width, fill=iris$Species))+
     geom_density(stat = "density",alpha=I(0.2))+
     geom_vline(aes(xintercept = input$pwidth), color = "red", linetype = "dashed")
   print(pw)})
