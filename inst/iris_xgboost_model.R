@@ -52,7 +52,7 @@ IrisClassifier <- xgboost(params = param, data = x, label = y
                           ,nrounds = nround, missing = NA)
 
 #save model
-xgb.save(IrisClassifier,"IrisClassifier.rdata")
+xgb.save(IrisClassifier,"IrisClassifier.model")
 
 
 #will need this code for the global app, commenting out for now

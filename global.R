@@ -11,7 +11,7 @@ library(xgboost)
 #the previous code and added the correct code above.
 
 #load saved xgboost model
-xgmodel <- xgb.load("inst/IrisClassifier.rdata")
+xgmodel <- xgb.load("IrisClassifier.model")
 
 #create function to generate prediction table
 pred_gen <- function(slength, swidth, plength, pwidth){
@@ -21,7 +21,7 @@ pred_gen <- function(slength, swidth, plength, pwidth){
   #create data frame with probabilities
   #cbind and colnames threw errors when I wanted to chain, hence, the ugly code
   #had to throw in another column with the names since the labels wouldn't cooperate
-  t <- as.dataframe(preds)%>%
+  t <- as.data.frame(preds)%>%
     cbind(c("setosa","versicolor","virginica"))
   colnames(t) = c("probability","species")
   #sort by descending probability
