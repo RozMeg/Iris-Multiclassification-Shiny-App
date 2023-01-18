@@ -1,5 +1,4 @@
 # Iris-Multiclassification-Shiny-App
-Shiny app for classifying Species in Iris for STAT6969 Assignment 9
 
 These are the files for a homework assignment in my Practical Data Science class from my Biostatistics program in which we had to create an R Shiny App
 for multiclassification using the ubiquitous Iris data set. Much of this code is borrowed from the sample code our instructor provided. 
